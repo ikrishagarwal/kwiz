@@ -11,3 +11,12 @@
 .scrollbar::-webkit-scrollbar {
   width: 0px;
 }
+
+.leaderboard-table tr td:first-child,
+.leaderboard-table tr th:first-child {
+  @apply border-r-2 border-kiwi-100;
+}
+
+.leaderboard-table tbody tr td {
+  @apply px-4;
+}
