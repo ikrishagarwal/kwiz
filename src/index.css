@@ -7,3 +7,7 @@
 #root {
   min-height: 100vh;
 }
+
+.scrollbar::-webkit-scrollbar {
+  width: 0px;
+}

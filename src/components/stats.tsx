@@ -6,7 +6,7 @@ export const Stats = ({ stats }: StatsParams) => {
       <section className="flex justify-center">
         <Pill content="Stats"></Pill>
       </section>
-      <section className="my-6 text-white tracking-wider leading-relaxed flex justify-center">
+      <section className="mt-6 text-white tracking-wider leading-relaxed flex justify-center">
         <section className="w-fit">
           <p>Username: {stats.username}</p>
           <p>
