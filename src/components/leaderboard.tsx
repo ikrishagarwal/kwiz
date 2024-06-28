@@ -7,7 +7,7 @@ export const LeaderBoard = ({}) => {
         <Pill content="LeaderBoard"></Pill>
       </section>
       <section className="mt-6 h-full text-white tracking-wider leading-relaxed flex justify-center">
-        <section className="w-fit h-auto max-h-[100%] overflow-scroll scrollbar">
+        <section className="w-fit h-auto max-h-[90%] overflow-scroll scrollbar">
           <table className="table-auto leaderboard-table">
             <thead className="border-b-2 border-kiwi-100">
               <tr>
