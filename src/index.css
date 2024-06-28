@@ -1,0 +1,9 @@
+@import url("https://fonts.bunny.net/css?family=josefin-sans:600&text=Kwiz");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  min-height: 100vh;
+}
