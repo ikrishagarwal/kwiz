@@ -1,23 +1,37 @@
 // import { QuizPage } from "./QuizPage";
+import { useState } from "react";
 import { Home } from "./Home";
-import { QuizPage } from "./QuizPage";
 import { Header } from "./components/header";
 import "./index.css";
+import { QuizPage } from "./QuizPage";
 
-function App() {
+const App = () => {
+  const [showQuiz, setShowQuiz] = useState(false);
+
+  const returnFormData = ({ username, role }: FormData) => {
+    console.log(username, role);
+    setShowQuiz(true);
+  };
+
   return (
     <>
       <section className="min-h-screen bg-kiwi-900 flex h-full flex-col">
-        <section className="box-border">
-          <Header></Header>
-        </section>
+        <Header></Header>
         <section className="flex-grow flex w-full">
-          {/* <Home></Home> */}
-          <QuizPage></QuizPage>
+          {showQuiz ? (
+            <QuizPage></QuizPage>
+          ) : (
+            <Home returnFormData={returnFormData}></Home>
+          )}
         </section>
       </section>
     </>
   );
-}
+};
+
+type FormData = {
+  username: string;
+  role: string;
+};
 
 export default App;
