@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         branding: ['"Josefin Sans"', 'sans-serif'],
+        heading: ['"DM Serif Display"', 'serif']
       },
       colors: {
         kiwi: {
