@@ -2,6 +2,7 @@
 import { Home } from "./Home";
 import { QuizPage } from "./QuizPage";
 import { Header } from "./components/header";
+import "./index.css";
 
 function App() {
   return (

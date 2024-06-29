@@ -1,0 +1,3 @@
+.role-radio:checked + label div {
+  @apply border-2 border-kiwi-100 bg-kiwi-200;
+}
