@@ -9,7 +9,7 @@ const App = () => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [username, setUsername] = useState("");
 
-  const returnFormData = ({ username, role }: FormData) => {
+  const homeCallback = ({ username, role }: FormData) => {
     console.log(username, role);
     setShowQuiz(true);
     setUsername(username);
@@ -23,7 +23,7 @@ const App = () => {
           {showQuiz ? (
             <QuizPage username={username}></QuizPage>
           ) : (
-            <Home returnFormData={returnFormData}></Home>
+            <Home homeCallback={homeCallback}></Home>
           )}
         </section>
       </section>

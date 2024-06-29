@@ -1,7 +1,7 @@
 import "./Home.css";
 import { ChangeEvent, useState } from "react";
 
-export const Home = ({ returnFormData }: HomeData) => {
+export const Home = ({ homeCallback }: HomeProps) => {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
 
@@ -27,7 +27,7 @@ export const Home = ({ returnFormData }: HomeData) => {
                 if (role === "")
                   return alert("You need to select at least one of the role!");
 
-                returnFormData({
+                homeCallback({
                   username: name,
                   role,
                 });
@@ -96,6 +96,6 @@ export const Home = ({ returnFormData }: HomeData) => {
   );
 };
 
-type HomeData = {
-  returnFormData: Function;
+type HomeProps = {
+  homeCallback: Function;
 };
