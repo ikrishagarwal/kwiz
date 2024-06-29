@@ -10,7 +10,7 @@ function App() {
         <section className="box-border">
           <Header></Header>
         </section>
-        <section className="flex-grow flex items-stretch w-full">
+        <section className="flex-grow flex w-full">
           {/* <Home></Home> */}
           <QuizPage></QuizPage>
         </section>
