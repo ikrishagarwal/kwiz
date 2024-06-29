@@ -4,7 +4,7 @@ import "../index.css";
 export const Quiz = ({ question, options }: QuizParams) => {
   const prefixMap = ["A", "B", "C", "D"];
   return (
-    <section className="bg-kiwi-600 rounded-xl p-8 m-8 w-full box-border overflow-scroll scrollbar">
+    <section className="bg-kiwi-600 rounded-xl p-8 w-full h-full box-border overflow-y-auto scrollbar">
       <Pill content="Question. 1"></Pill>
       <p className="text-white text-base my-6">Q. {question}</p>
       {options?.map((option, index) => (

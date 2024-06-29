@@ -3,7 +3,7 @@ import "./Home.css";
 export const Home = () => {
   return (
     <>
-      <section className="h-full text-white flex items-center justify-center">
+      <section className="flex-grow text-white flex items-center justify-center">
         <section className="h-fit w-fit  bg-kiwi-600 rounded-lg py-8 px-16">
           <h1 className="text-white text-3xl py-4 font-heading">Get Started</h1>
           <section>

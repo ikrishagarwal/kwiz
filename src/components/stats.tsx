@@ -2,7 +2,7 @@ import { Pill } from "./elements/pill";
 
 export const Stats = ({ stats }: StatsParams) => {
   return (
-    <section className="bg-kiwi-600 rounded-xl p-8 m-8 box-border">
+    <section className="bg-kiwi-600 rounded-xl p-4 md:p-8 box-border">
       <section className="flex justify-center">
         <Pill content="Stats"></Pill>
       </section>
