@@ -1,6 +1,7 @@
 // import { QuizPage } from "./QuizPage";
 import { Home } from "./Home";
 import { Header } from "./components/header";
+import "./index.css";
 
 function App() {
   return (
