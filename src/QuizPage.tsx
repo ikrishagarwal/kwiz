@@ -5,7 +5,7 @@ import { LeaderBoard } from "./components/leaderboard";
 export const QuizPage = () => {
   return (
     <>
-      <section className="grid grid-cols-2 gap-16 box-border">
+      <section className="w-full grid grid-cols-2 gap-16 box-border">
         <Quiz
           question="What is the square root of 169?"
           options={["7", "13", "18", "17"]}

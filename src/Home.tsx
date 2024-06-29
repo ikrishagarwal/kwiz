@@ -1,7 +1,7 @@
 export const Home = () => {
   return (
     <>
-      <section className="h-full text-white flex items-center justify-center">
+      <section className="flex-grow text-white flex items-center justify-center">
         <section className="h-fit w-fit  bg-kiwi-600 rounded-lg p-8">
           <h1 className="text-white text-3xl font-heading">Get Started</h1>
           <section>
