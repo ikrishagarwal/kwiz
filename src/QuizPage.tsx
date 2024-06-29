@@ -2,7 +2,7 @@ import { Quiz } from "./components/quiz";
 import { Stats } from "./components/stats";
 import { LeaderBoard } from "./components/leaderboard";
 
-export const QuizPage = () => {
+export const QuizPage = ({ username }: QuizProps) => {
   return (
     <>
       <section className="w-full flex justify-center">
@@ -17,7 +17,7 @@ export const QuizPage = () => {
             <section className="h-fit">
               <Stats
                 stats={{
-                  username: "John Doe",
+                  username,
                   correct: 3,
                   total: 5,
                   category: "Math",
@@ -32,4 +32,8 @@ export const QuizPage = () => {
       </section>
     </>
   );
+};
+
+type QuizProps = {
+  username: string;
 };

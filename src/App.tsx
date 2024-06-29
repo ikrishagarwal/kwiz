@@ -1,16 +1,18 @@
-// import { QuizPage } from "./QuizPage";
 import { useState } from "react";
 import { Home } from "./Home";
 import { Header } from "./components/header";
-import "./index.css";
 import { QuizPage } from "./QuizPage";
+
+import "./index.css";
 
 const App = () => {
   const [showQuiz, setShowQuiz] = useState(false);
+  const [username, setUsername] = useState("");
 
   const returnFormData = ({ username, role }: FormData) => {
     console.log(username, role);
     setShowQuiz(true);
+    setUsername(username);
   };
 
   return (
@@ -19,7 +21,7 @@ const App = () => {
         <Header></Header>
         <section className="flex-grow flex w-full">
           {showQuiz ? (
-            <QuizPage></QuizPage>
+            <QuizPage username={username}></QuizPage>
           ) : (
             <Home returnFormData={returnFormData}></Home>
           )}
