@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Home } from "./Home";
 import { Header } from "./components/header";
-import { QuizPage } from "./QuizPage";
 import { Room } from "./Room";
+import { JoinRoom } from "./JoinRoom";
 
 import "./index.css";
 
@@ -31,7 +31,7 @@ const App = () => {
           ) : credentials.role === "organizer" ? (
             <Room></Room>
           ) : (
-            <QuizPage username={credentials.username}></QuizPage>
+            <JoinRoom credentials={credentials}></JoinRoom>
           )}
         </section>
       </section>
