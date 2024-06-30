@@ -102,7 +102,26 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
                 </section>
                 <section className="mt-6 text-white tracking-wider leading-relaxed flex justify-center">
                   <section className="w-fit">
-                    <p>Room Code: {roomId}</p>
+                    <p>
+                      Room Code:{" "}
+                      <span className="font-mono bg-kiwi-900 px-2 py-1 rounded-md text-sm font-semibold">
+                        {roomId}
+                      </span>
+                    </p>
+
+                    <section className="pt-6 flex justify-center items-center">
+                      {/* TODO: add a toast confirmation message */}
+                      <button
+                        className="px-4 py-2 bg-kiwi-200 rounded-lg"
+                        onClick={() =>
+                          navigator.clipboard.writeText(
+                            window.location.origin + "/room/" + roomId
+                          )
+                        }
+                      >
+                        Copy Room Link
+                      </button>
+                    </section>
                   </section>
                 </section>
               </section>
