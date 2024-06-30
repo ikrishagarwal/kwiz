@@ -115,7 +115,7 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
                         className="px-4 py-2 bg-kiwi-200 rounded-lg"
                         onClick={() =>
                           navigator.clipboard.writeText(
-                            window.location.origin + "/room/" + roomId
+                            window.location.origin + "#" + roomId
                           )
                         }
                       >

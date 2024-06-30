@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Home } from "./Home";
 import { Header } from "./components/header";
 import { Room } from "./Room";
@@ -12,6 +12,7 @@ const App = () => {
     username: "Guest",
     role: "attendee",
   });
+  const [roomId, setRoomId] = useState("");
 
   const homeCallback = ({ username, role }: CredentialsData) => {
     setIsLoggedIn(true);
@@ -20,6 +21,13 @@ const App = () => {
       role,
     });
   };
+
+  useEffect(() => {
+    const urlRoomId = window.location.hash;
+    if (urlRoomId.trim().length <= 1) return;
+
+    setRoomId(urlRoomId.substring(1));
+  }, []);
 
   return (
     <>
@@ -31,7 +39,7 @@ const App = () => {
           ) : credentials.role === "organizer" ? (
             <Room></Room>
           ) : (
-            <JoinRoom credentials={credentials}></JoinRoom>
+            <JoinRoom credentials={credentials} roomId={roomId}></JoinRoom>
           )}
         </section>
       </section>

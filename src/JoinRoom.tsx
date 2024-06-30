@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { QuizPage } from "./QuizPage";
 
-export const JoinRoom = ({ credentials }: JoinRoomProps) => {
-  const [roomName, setRoomName] = useState("");
+export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
+  const [roomName, setRoomName] = useState(roomId);
   const [showQuiz, setShowQuiz] = useState(false);
 
   return (
@@ -61,4 +61,5 @@ type CredentialsData = {
 
 type JoinRoomProps = {
   credentials: CredentialsData;
+  roomId: string;
 };
