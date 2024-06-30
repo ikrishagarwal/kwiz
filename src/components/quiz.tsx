@@ -10,7 +10,7 @@ export const Quiz = ({ question, options }: QuizParams) => {
   };
 
   return (
-    <section className="bg-kiwi-600 rounded-xl p-8 w-full h-full box-border overflow-y-auto scrollbar">
+    <section className="bg-kiwi-600 rounded-xl p-8 w-full h-full box-border">
       <Pill content="Question. 1"></Pill>
       <p className="text-white text-base my-6">Q. {question}</p>
       <form

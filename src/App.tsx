@@ -3,6 +3,7 @@ import { Home } from "./Home";
 import { Header } from "./components/header";
 import { QuizPage } from "./QuizPage";
 // import { Room } from "./Room";
+import { QuizMaker } from "./QuizMaker";
 
 import "./index.css";
 
@@ -25,12 +26,13 @@ const App = () => {
       <section className="min-h-screen bg-kiwi-900 flex h-full flex-col">
         <Header></Header>
         <section className="flex-grow flex w-full">
-          {showQuiz ? (
+          {/* {showQuiz ? (
             <QuizPage username={username}></QuizPage>
           ) : (
             <Home homeCallback={homeCallback}></Home>
-          )}
+          )} */}
           {/* <Room roomCallback={roomCallback}></Room> */}
+          <QuizMaker></QuizMaker>
         </section>
       </section>
     </>

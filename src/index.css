@@ -9,8 +9,8 @@
   min-height: 100vh;
 }
 
-.scrollbar::-webkit-scrollbar {
-  width: 0px;
+.scrollbar {
+  scrollbar-width: thin;
 }
 
 .leaderboard-table tr td:first-child,
