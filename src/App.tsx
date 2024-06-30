@@ -2,46 +2,46 @@ import { useState } from "react";
 import { Home } from "./Home";
 import { Header } from "./components/header";
 import { QuizPage } from "./QuizPage";
-// import { Room } from "./Room";
-import { QuizMaker } from "./QuizMaker";
+import { Room } from "./Room";
 
 import "./index.css";
 
 const App = () => {
-  const [showQuiz, setShowQuiz] = useState(false);
-  const [username, setUsername] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [credentials, setCredentials] = useState<CredentialsData>({
+    username: "Guest",
+    role: "attendee",
+  });
 
-  const homeCallback = ({ username, role }: FormData) => {
-    console.log(username, role);
-    setShowQuiz(true);
-    setUsername(username);
+  const homeCallback = ({ username, role }: CredentialsData) => {
+    setIsLoggedIn(true);
+    setCredentials({
+      username,
+      role,
+    });
   };
-
-  // const roomCallback = (roomName: string) => {
-  //   console.log(roomName)
-  // };
 
   return (
     <>
       <section className="min-h-screen bg-kiwi-900 flex h-full flex-col">
         <Header></Header>
         <section className="flex-grow flex w-full">
-          {/* {showQuiz ? (
-            <QuizPage username={username}></QuizPage>
-          ) : (
+          {!isLoggedIn ? (
             <Home homeCallback={homeCallback}></Home>
-          )} */}
-          {/* <Room roomCallback={roomCallback}></Room> */}
-          <QuizMaker></QuizMaker>
+          ) : credentials.role === "organizer" ? (
+            <Room></Room>
+          ) : (
+            <QuizPage username={credentials.username}></QuizPage>
+          )}
         </section>
       </section>
     </>
   );
 };
 
-type FormData = {
+type CredentialsData = {
   username: string;
-  role: string;
+  role: "organizer" | "attendee";
 };
 
 export default App;

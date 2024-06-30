@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { LeaderBoard } from "./components/leaderboard";
+import { Pill } from "./components/elements/pill";
 
-export const QuizMaker = ({}) => {
+export const QuizMaker = ({ roomId }: QuizMakerProps) => {
   const [question, setQuestion] = useState("");
   const [optionA, setOptionA] = useState("");
   const [optionB, setOptionB] = useState("");
@@ -94,6 +95,18 @@ export const QuizMaker = ({}) => {
             </section>
           </section>
           <section className="flex flex-col gap-6 flex-1 w-full">
+            <section className="h-fit">
+              <section className="bg-kiwi-600 rounded-xl p-4 md:p-8 box-border">
+                <section className="flex justify-center">
+                  <Pill content="Room"></Pill>
+                </section>
+                <section className="mt-6 text-white tracking-wider leading-relaxed flex justify-center">
+                  <section className="w-fit">
+                    <p>Room Code: {roomId}</p>
+                  </section>
+                </section>
+              </section>
+            </section>
             <section className="max-h-full flex-shrink">
               <LeaderBoard></LeaderBoard>
             </section>
@@ -102,4 +115,8 @@ export const QuizMaker = ({}) => {
       </section>
     </>
   );
+};
+
+type QuizMakerProps = {
+  roomId: string;
 };
