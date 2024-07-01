@@ -4,6 +4,7 @@ import { ChangeEvent, ChangeEventHandler, useState } from "react";
 export const Quiz = ({ question, options }: QuizParams) => {
   const prefixMap = ["A", "B", "C", "D"];
   const [_answer, setAnswer] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const handleRadio = (event: ChangeEvent<HTMLInputElement>) => {
     setAnswer(event.target.value);
@@ -17,25 +18,28 @@ export const Quiz = ({ question, options }: QuizParams) => {
         action="#"
         onSubmit={(event) => {
           event.preventDefault();
+          setSubmitted(true);
         }}
       >
-        <section className="py-4">
-          {options?.map((option, index) => (
-            <Option
-              handler={handleRadio}
-              content={option}
-              prefix={prefixMap[index]}
-            ></Option>
-          ))}
-        </section>
-        <section className="flex justify-center items-center">
-          <button
-            type="submit"
-            className="rounded-lg px-10 py-4 text-white bg-kiwi-200"
-          >
-            Submit
-          </button>
-        </section>
+        <fieldset disabled={submitted}>
+          <section className="py-4">
+            {options?.map((option, index) => (
+              <Option
+                handler={handleRadio}
+                content={option}
+                prefix={prefixMap[index]}
+              ></Option>
+            ))}
+          </section>
+          <section className="flex justify-center items-center">
+            <button
+              type="submit"
+              className="rounded-lg px-10 py-4 text-white bg-kiwi-200 disabled:brightness-50"
+            >
+              Submit
+            </button>
+          </section>
+        </fieldset>
       </form>
     </section>
   );
