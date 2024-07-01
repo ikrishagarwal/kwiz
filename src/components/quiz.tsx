@@ -47,7 +47,7 @@ export const Quiz = ({ question, options }: QuizParams) => {
 
 const Option = ({ content, prefix, handler }: OptionParams) => {
   return (
-    <section>
+    <section key={prefix}>
       <input
         type="radio"
         className="hidden quiz-radio"
@@ -57,9 +57,9 @@ const Option = ({ content, prefix, handler }: OptionParams) => {
         onChange={handler}
       />
       <label htmlFor={"option-" + prefix}>
-        <div className="bg-kiwi-150 my-4 py-4 text-white text-base font-semibold px-6 rounded-lg uppercase tracking-wide flex flex-row items-center">
+        <div className="bg-kiwi-150 my-4 py-4 text-white text-base font-semibold px-6 rounded-lg tracking-wide flex flex-row items-center">
           <p className="rounded-full bg-kiwi-700 size-10 mr-4 tracking-wide flex items-center justify-center">
-            <p>{prefix}</p>
+            <span>{prefix}</span>
           </p>
           <p className="py-1">{content}</p>
         </div>

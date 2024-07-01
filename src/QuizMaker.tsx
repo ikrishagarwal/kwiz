@@ -1,10 +1,22 @@
 import { LeaderBoard } from "./components/leaderboard";
 import { Pill } from "./components/elements/pill";
 import { QuizMakerForm } from "./components/QuizMakerForm";
+import { Quiz } from "./components/quiz";
+import { useState } from "react";
 
 export const QuizMaker = ({ roomId }: QuizMakerProps) => {
+  const [questionData, setQuestionData] = useState<QuestionType>({
+    question: "",
+    options: [],
+  });
+
   const quizMakerFormHandler = (question: string, options: string[]) => {
     console.log({
+      question,
+      options,
+    });
+
+    setQuestionData({
       question,
       options,
     });
@@ -16,7 +28,14 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
         <section className="w-full pt-8 max-w-md flex-nowrap max-h-full lg:max-w-7xl flex flex-col items-center lg:items-start lg:flex-row gap-8 lg:gap-6 lg:px-12 lg:pb-5 px-4 pb-5">
           <section className="flex-1 w-full">
             <section className="bg-kiwi-600 rounded-xl p-8 w-full h-full box-border">
-              <QuizMakerForm callback={quizMakerFormHandler}></QuizMakerForm>
+              {questionData.question.trim() ? (
+                <Quiz
+                  question={questionData.question}
+                  options={questionData.options}
+                ></Quiz>
+              ) : (
+                <QuizMakerForm callback={quizMakerFormHandler}></QuizMakerForm>
+              )}
             </section>
           </section>
           <section className="flex flex-col gap-6 flex-1 w-full">
@@ -63,4 +82,9 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
 
 type QuizMakerProps = {
   roomId: string;
+};
+
+type QuestionType = {
+  question: string;
+  options: string[];
 };
