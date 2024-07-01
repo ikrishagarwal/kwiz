@@ -9,17 +9,19 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
     question: "",
     options: [],
   });
+  const [showQuiz, setShowQuiz] = useState(false);
 
   const quizMakerFormHandler = (question: string, options: string[]) => {
-    console.log({
-      question,
-      options,
-    });
-
     setQuestionData({
       question,
       options,
     });
+    setShowQuiz(true);
+  };
+
+  const answerSelectionHandler = (answer: string) => {
+    console.log(answer);
+    setShowQuiz(false);
   };
 
   return (
@@ -28,10 +30,13 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
         <section className="w-full pt-8 max-w-md flex-nowrap max-h-full lg:max-w-7xl flex flex-col items-center lg:items-start lg:flex-row gap-8 lg:gap-6 lg:px-12 lg:pb-5 px-4 pb-5">
           <section className="flex-1 w-full">
             <section className="bg-kiwi-600 rounded-xl p-8 w-full h-full box-border">
-              {questionData.question.trim() ? (
+              {showQuiz ? (
                 <Quiz
                   question={questionData.question}
                   options={questionData.options}
+                  submitText="Send Answer!"
+                  pillText="Submit Solution"
+                  callback={answerSelectionHandler}
                 ></Quiz>
               ) : (
                 <QuizMakerForm callback={quizMakerFormHandler}></QuizMakerForm>

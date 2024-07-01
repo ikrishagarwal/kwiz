@@ -1,9 +1,15 @@
 import { Pill } from "./elements/pill";
 import { ChangeEvent, ChangeEventHandler, useState } from "react";
 
-export const Quiz = ({ question, options }: QuizParams) => {
+export const Quiz = ({
+  question,
+  options,
+  submitText,
+  callback,
+  pillText,
+}: QuizParams) => {
   const prefixMap = ["A", "B", "C", "D"];
-  const [_answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleRadio = (event: ChangeEvent<HTMLInputElement>) => {
@@ -12,13 +18,14 @@ export const Quiz = ({ question, options }: QuizParams) => {
 
   return (
     <section className="bg-kiwi-600 rounded-xl p-8 w-full h-full box-border">
-      <Pill content="Question. 1"></Pill>
+      <Pill content={pillText || "Question"}></Pill>
       <p className="text-white text-base my-6">Q. {question}</p>
       <form
         action="#"
         onSubmit={(event) => {
           event.preventDefault();
           setSubmitted(true);
+          callback(answer);
         }}
       >
         <fieldset disabled={submitted}>
@@ -28,6 +35,7 @@ export const Quiz = ({ question, options }: QuizParams) => {
                 handler={handleRadio}
                 content={option}
                 prefix={prefixMap[index]}
+                key={index}
               ></Option>
             ))}
           </section>
@@ -36,7 +44,7 @@ export const Quiz = ({ question, options }: QuizParams) => {
               type="submit"
               className="rounded-lg px-10 py-4 text-white bg-kiwi-200 disabled:brightness-50"
             >
-              Submit
+              {submitText || "Submit"}
             </button>
           </section>
         </fieldset>
@@ -47,7 +55,7 @@ export const Quiz = ({ question, options }: QuizParams) => {
 
 const Option = ({ content, prefix, handler }: OptionParams) => {
   return (
-    <section key={prefix}>
+    <section>
       <input
         type="radio"
         className="hidden quiz-radio"
@@ -71,6 +79,9 @@ const Option = ({ content, prefix, handler }: OptionParams) => {
 type QuizParams = {
   options?: string[];
   question?: string;
+  pillText?: string;
+  submitText?: string;
+  callback: Function;
 };
 
 type OptionParams = {

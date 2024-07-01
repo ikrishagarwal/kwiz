@@ -3,6 +3,9 @@ import { Stats } from "./components/stats";
 import { LeaderBoard } from "./components/leaderboard";
 
 export const QuizPage = ({ username }: QuizProps) => {
+  const answerHandler = (answer: string) => {
+    console.log(answer);
+  };
   return (
     <>
       <section className="w-full flex justify-center">
@@ -11,6 +14,7 @@ export const QuizPage = ({ username }: QuizProps) => {
             <Quiz
               question="What is the square root of 169?"
               options={["7", "13", "18", "17"]}
+              callback={answerHandler}
             ></Quiz>
           </section>
           <section className="flex flex-col gap-6 flex-1 w-full">
