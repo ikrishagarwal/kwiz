@@ -3,6 +3,7 @@ import { Pill } from "./components/elements/pill";
 import { QuizMakerForm } from "./components/QuizMakerForm";
 import { Quiz } from "./components/quiz";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export const QuizMaker = ({ roomId }: QuizMakerProps) => {
   const [questionData, setQuestionData] = useState<QuestionType>({
@@ -59,14 +60,27 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
                     </p>
 
                     <section className="pt-6 flex justify-center items-center">
-                      {/* TODO: add a toast confirmation message */}
                       <button
                         className="px-4 py-2 bg-kiwi-200 rounded-lg"
-                        onClick={() =>
+                        onClick={() => {
                           navigator.clipboard.writeText(
                             window.location.origin + "#" + roomId
-                          )
-                        }
+                          );
+                          toast.custom(
+                            (t) => (
+                              <div
+                                className={`${
+                                  t.visible ? "animate-enter" : "animate-leave"
+                                } bg-kiwi-150 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                              >
+                                👏 Copied to clipboard!
+                              </div>
+                            ),
+                            {
+                              duration: 2000,
+                            }
+                          );
+                        }}
                       >
                         Copy Room Link
                       </button>
@@ -81,6 +95,7 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
           </section>
         </section>
       </section>
+      <Toaster></Toaster>
     </>
   );
 };
