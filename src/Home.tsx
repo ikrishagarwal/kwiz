@@ -1,3 +1,4 @@
+import toast, { Toaster } from "react-hot-toast";
 import "./Home.css";
 import { ChangeEvent, useState } from "react";
 
@@ -23,9 +24,35 @@ export const Home = ({ homeCallback }: HomeProps) => {
                 event.preventDefault();
 
                 if (name.trim() === "")
-                  return alert("Username can't be empty!");
+                  return toast.custom(
+                    (t) => (
+                      <div
+                        className={`${
+                          t.visible ? "animate-enter" : "animate-leave"
+                        } bg-yellow-950 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                      >
+                        ❌ Username can't be empty!
+                      </div>
+                    ),
+                    {
+                      duration: 2000,
+                    }
+                  );
                 if (role === "")
-                  return alert("You need to select at least one of the role!");
+                  return toast.custom(
+                    (t) => (
+                      <div
+                        className={`${
+                          t.visible ? "animate-enter" : "animate-leave"
+                        } bg-yellow-950 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                      >
+                        ❌ At least one role should be selected!
+                      </div>
+                    ),
+                    {
+                      duration: 2000,
+                    }
+                  );
 
                 homeCallback({
                   username: name,
@@ -82,7 +109,7 @@ export const Home = ({ homeCallback }: HomeProps) => {
               </section>
               <section className="pt-6">
                 <button
-                  className="w-full py-3 bg-kiwi-200 rounded-lg"
+                  className="w-full py-3 bg-kiwi-200 rounded-lg active:scale-95"
                   type="submit"
                 >
                   Go!
@@ -92,6 +119,7 @@ export const Home = ({ homeCallback }: HomeProps) => {
           </section>
         </section>
       </section>
+      <Toaster></Toaster>
     </>
   );
 };

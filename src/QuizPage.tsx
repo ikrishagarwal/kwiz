@@ -1,10 +1,26 @@
 import { Quiz } from "./components/quiz";
 import { Stats } from "./components/stats";
 import { LeaderBoard } from "./components/leaderboard";
+import toast, { Toaster } from "react-hot-toast";
 
 export const QuizPage = ({ username }: QuizProps) => {
   const answerHandler = (answer: string) => {
     console.log(answer);
+
+    toast.custom(
+      (t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } bg-kiwi-150 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        >
+          ✅ Sent the solution!
+        </div>
+      ),
+      {
+        duration: 2000,
+      }
+    );
   };
   return (
     <>
@@ -34,6 +50,7 @@ export const QuizPage = ({ username }: QuizProps) => {
           </section>
         </section>
       </section>
+      <Toaster></Toaster>
     </>
   );
 };

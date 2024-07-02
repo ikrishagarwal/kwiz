@@ -1,3 +1,4 @@
+import toast, { Toaster } from "react-hot-toast";
 import { Pill } from "./elements/pill";
 import { ChangeEvent, ChangeEventHandler, useState } from "react";
 
@@ -24,6 +25,23 @@ export const Quiz = ({
         action="#"
         onSubmit={(event) => {
           event.preventDefault();
+
+          if (!answer.trim())
+            return toast.custom(
+              (t) => (
+                <div
+                  className={`${
+                    t.visible ? "animate-enter" : "animate-leave"
+                  } bg-yellow-950 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                >
+                  ❌ No option Selected!
+                </div>
+              ),
+              {
+                duration: 2000,
+              }
+            );
+
           setSubmitted(true);
           callback(answer);
         }}
@@ -42,7 +60,7 @@ export const Quiz = ({
           <section className="flex justify-center items-center">
             <button
               type="submit"
-              className="rounded-lg px-10 py-4 text-white bg-kiwi-200 disabled:brightness-50"
+              className="rounded-lg px-10 py-4 text-white bg-kiwi-200 active:scale-95 disabled:brightness-50"
             >
               {submitText || "Submit"}
             </button>
@@ -72,6 +90,7 @@ const Option = ({ content, prefix, handler }: OptionParams) => {
           <p className="py-1">{content}</p>
         </div>
       </label>
+      <Toaster></Toaster>
     </section>
   );
 };

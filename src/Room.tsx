@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { QuizMaker } from "./QuizMaker";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Room = () => {
   const [roomName, setRoomName] = useState("");
@@ -20,6 +21,22 @@ export const Room = () => {
                 action="#"
                 onSubmit={(event) => {
                   event.preventDefault();
+
+                  if (!roomName.trim())
+                    return toast.custom(
+                      (t) => (
+                        <div
+                          className={`${
+                            t.visible ? "animate-enter" : "animate-leave"
+                          } bg-yellow-950 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                        >
+                          ❌ Empty room name!
+                        </div>
+                      ),
+                      {
+                        duration: 2000,
+                      }
+                    );
                   setShowQuizMaker(true);
                 }}
               >
@@ -39,7 +56,7 @@ export const Room = () => {
                 </section>
                 <section className="pt-6 flex justify-center items-center">
                   <button
-                    className="w-full py-4 bg-kiwi-200 rounded-lg"
+                    className="w-full py-4 bg-kiwi-200 rounded-lg active:scale-95"
                     type="submit"
                   >
                     Create!
@@ -50,6 +67,7 @@ export const Room = () => {
           </section>
         </section>
       )}
+      <Toaster></Toaster>
     </>
   );
 };

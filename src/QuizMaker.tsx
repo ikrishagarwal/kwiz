@@ -18,11 +18,41 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
       options,
     });
     setShowQuiz(true);
+
+    toast.custom(
+      (t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } bg-kiwi-150 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        >
+          ✅ Sent the question!
+        </div>
+      ),
+      {
+        duration: 2000,
+      }
+    );
   };
 
   const answerSelectionHandler = (answer: string) => {
     console.log(answer);
     setShowQuiz(false);
+
+    toast.custom(
+      (t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } bg-kiwi-150 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        >
+          ✅ Sent the solution!
+        </div>
+      ),
+      {
+        duration: 2000,
+      }
+    );
   };
 
   return (
@@ -61,7 +91,7 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
 
                     <section className="pt-6 flex justify-center items-center">
                       <button
-                        className="px-4 py-2 bg-kiwi-200 rounded-lg"
+                        className="px-4 py-2 bg-kiwi-200 rounded-lg active:scale-95"
                         onClick={() => {
                           navigator.clipboard.writeText(
                             window.location.origin + "#" + roomId
