@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { Home } from "./Home";
+import { Home } from "./pages/Home";
 import { Header } from "./components/header";
-import { Room } from "./Room";
-import { JoinRoom } from "./JoinRoom";
+import { Room } from "./pages/Room";
+import { JoinRoom } from "./pages/JoinRoom";
 
 import "./index.css";
+import { wsUrl } from "./config";
+import { WebSocketContext } from "./websocket";
+import useWebSocket from "react-use-websocket";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +25,14 @@ const App = () => {
     });
   };
 
+  const proto = location.protocol.startsWith("https") ? "wss" : "ws";
+  const ws = useWebSocket(`${proto}://${wsUrl}`, {
+    onOpen: () => console.log("Connected to server"),
+    onClose: () => console.log("Disconnected from server"),
+    onError: (event) => console.error(event),
+    onMessage: (event) => console.log(event.data),
+  });
+
   useEffect(() => {
     const urlRoomId = window.location.hash;
     if (urlRoomId.trim().length <= 1) return;
@@ -31,18 +42,20 @@ const App = () => {
 
   return (
     <>
-      <section className="min-h-screen bg-kiwi-900 flex h-full flex-col">
-        <Header></Header>
-        <section className="flex-grow flex w-full">
-          {!isLoggedIn ? (
-            <Home homeCallback={homeCallback}></Home>
-          ) : credentials.role === "organizer" ? (
-            <Room></Room>
-          ) : (
-            <JoinRoom credentials={credentials} roomId={roomId}></JoinRoom>
-          )}
+      <WebSocketContext.Provider value={ws}>
+        <section className="min-h-screen bg-kiwi-900 flex h-full flex-col">
+          <Header></Header>
+          <section className="flex-grow flex w-full">
+            {!isLoggedIn ? (
+              <Home homeCallback={homeCallback}></Home>
+            ) : credentials.role === "organizer" ? (
+              <Room></Room>
+            ) : (
+              <JoinRoom credentials={credentials} roomId={roomId}></JoinRoom>
+            )}
+          </section>
         </section>
-      </section>
+      </WebSocketContext.Provider>
     </>
   );
 };

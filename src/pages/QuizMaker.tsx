@@ -1,7 +1,7 @@
-import { LeaderBoard } from "./components/leaderboard";
-import { Pill } from "./components/elements/pill";
-import { QuizMakerForm } from "./components/QuizMakerForm";
-import { Quiz } from "./components/quiz";
+import { LeaderBoard } from "../components/leaderboard";
+import { Pill } from "../components/elements/pill";
+import { QuizMakerForm } from "../components/QuizMakerForm";
+import { Quiz } from "../components/quiz";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 

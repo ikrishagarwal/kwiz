@@ -1,6 +1,6 @@
-import { Quiz } from "./components/quiz";
-import { Stats } from "./components/stats";
-import { LeaderBoard } from "./components/leaderboard";
+import { Quiz } from "../components/quiz";
+import { Stats } from "../components/stats";
+import { LeaderBoard } from "../components/leaderboard";
 import toast, { Toaster } from "react-hot-toast";
 
 export const QuizPage = ({ username }: QuizProps) => {

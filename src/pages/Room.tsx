@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { QuizMaker } from "./QuizMaker";
 import toast, { Toaster } from "react-hot-toast";
+import { WebSocketContext } from "../websocket";
 
 export const Room = () => {
   const [roomName, setRoomName] = useState("");
   const [showQuizMaker, setShowQuizMaker] = useState(false);
+  const ws = useContext(WebSocketContext);
 
   return (
     <>
@@ -38,6 +40,29 @@ export const Room = () => {
                       }
                     );
                   setShowQuizMaker(true);
+
+                  if (!ws)
+                    return toast.custom(
+                      (t) => (
+                        <div
+                          className={`${
+                            t.visible ? "animate-enter" : "animate-leave"
+                          } bg-yellow-950 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                        >
+                          ❌ Connection Error! Please refresh the page
+                        </div>
+                      ),
+                      {
+                        duration: 2000,
+                      }
+                    );
+
+                  ws.sendJsonMessage({
+                    request_type: "host_room",
+                    designation: "organizer",
+                    roomId: roomName,
+                    userId: "abc1",
+                  });
                 }}
               >
                 <section className="py-4">
