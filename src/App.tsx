@@ -27,7 +27,17 @@ const App = () => {
 
   const proto = location.protocol.startsWith("https") ? "wss" : "ws";
   const ws = useWebSocket(`${proto}://${wsUrl}`, {
-    onOpen: () => console.log("Connected to server"),
+    onOpen: () => {
+      console.log("Connected to server");
+
+      // TODO: remove this on prod, just for testing
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          ws.sendMessage(`Requester: ${data.ip}`);
+        })
+        .catch(() => null);
+    },
     onClose: () => console.log("Disconnected from server"),
     onError: (event) => console.error(event),
     onMessage: (event) => console.log(event.data),

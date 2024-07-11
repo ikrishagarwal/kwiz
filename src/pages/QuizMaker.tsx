@@ -2,8 +2,9 @@ import { LeaderBoard } from "../components/leaderboard";
 import { Pill } from "../components/elements/pill";
 import { QuizMakerForm } from "../components/QuizMakerForm";
 import { Quiz } from "../components/quiz";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { WebSocketContext } from "../websocket";
 
 export const QuizMaker = ({ roomId }: QuizMakerProps) => {
   const [questionData, setQuestionData] = useState<QuestionType>({
@@ -11,6 +12,8 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
     options: [],
   });
   const [showQuiz, setShowQuiz] = useState(false);
+
+  const ws = useContext(WebSocketContext);
 
   const quizMakerFormHandler = (question: string, options: string[]) => {
     setQuestionData({
@@ -33,6 +36,14 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
         duration: 2000,
       }
     );
+
+    ws?.sendJsonMessage({
+      request_type: "add_question",
+      designation: "organizer",
+      roomId: roomId,
+      question: question,
+      options: options,
+    });
   };
 
   const answerSelectionHandler = (answer: string) => {
@@ -53,6 +64,13 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
         duration: 2000,
       }
     );
+
+    ws?.sendJsonMessage({
+      request_type: "submit_answer",
+      designation: "organizer",
+      roomId: roomId,
+      solution: answer,
+    });
   };
 
   return (
