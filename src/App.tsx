@@ -5,9 +5,7 @@ import { Room } from "./pages/Room";
 import { JoinRoom } from "./pages/JoinRoom";
 
 import "./index.css";
-import { wsUrl } from "./config";
-import { WebSocketContext } from "./websocket";
-import useWebSocket from "react-use-websocket";
+import { CredentialsContext } from "./credentials";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,24 +23,6 @@ const App = () => {
     });
   };
 
-  const proto = location.protocol.startsWith("https") ? "wss" : "ws";
-  const ws = useWebSocket(`${proto}://${wsUrl}`, {
-    onOpen: () => {
-      console.log("Connected to server");
-
-      // TODO: remove this on prod, just for testing
-      fetch("https://api.ipify.org?format=json")
-        .then((response) => response.json())
-        .then((data) => {
-          ws.sendMessage(`Requester: ${data.ip}`);
-        })
-        .catch(() => null);
-    },
-    onClose: () => console.log("Disconnected from server"),
-    onError: (event) => console.error(event),
-    onMessage: (event) => console.log(event.data),
-  });
-
   useEffect(() => {
     const urlRoomId = window.location.hash;
     if (urlRoomId.trim().length <= 1) return;
@@ -52,7 +32,7 @@ const App = () => {
 
   return (
     <>
-      <WebSocketContext.Provider value={ws}>
+      <CredentialsContext.Provider value={credentials}>
         <section className="min-h-screen bg-kiwi-900 flex h-full flex-col">
           <Header></Header>
           <section className="flex-grow flex w-full">
@@ -65,7 +45,7 @@ const App = () => {
             )}
           </section>
         </section>
-      </WebSocketContext.Provider>
+      </CredentialsContext.Provider>
     </>
   );
 };

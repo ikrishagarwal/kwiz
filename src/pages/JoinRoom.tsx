@@ -2,9 +2,30 @@ import { useState } from "react";
 import { QuizPage } from "./QuizPage";
 import toast, { Toaster } from "react-hot-toast";
 
+import useWebSocket from "react-use-websocket";
+import { wsUrl } from "../config";
+
 export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
   const [roomName, setRoomName] = useState(roomId);
   const [showQuiz, setShowQuiz] = useState(false);
+
+  const proto = location.protocol.startsWith("https") ? "wss" : "ws";
+  const ws = useWebSocket(`${proto}://${wsUrl}`, {
+    onOpen: () => {
+      console.log("Connected to server");
+
+      // TODO: remove this on prod, just for testing
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          ws.sendMessage(`Requester: ${data.ip}`);
+        })
+        .catch(() => null);
+    },
+    onClose: () => console.log("Disconnected from server"),
+    onError: (event) => console.error(event),
+    onMessage: (event) => console.log(event.data),
+  });
 
   return (
     <>
@@ -37,6 +58,15 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
                         duration: 2000,
                       }
                     );
+
+                  // TODO: fix the userId and make it unique
+                  ws.sendJsonMessage({
+                    request_type: "register_user",
+                    designation: "attendee",
+                    roomId: roomName,
+                    username: credentials.username,
+                    userId: credentials.username,
+                  });
                   setShowQuiz(true);
                 }}
               >

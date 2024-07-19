@@ -2,18 +2,16 @@ import { LeaderBoard } from "../components/leaderboard";
 import { Pill } from "../components/elements/pill";
 import { QuizMakerForm } from "../components/QuizMakerForm";
 import { Quiz } from "../components/quiz";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { WebSocketContext } from "../websocket";
+import { WebSocketHook } from "react-use-websocket/dist/lib/types";
 
-export const QuizMaker = ({ roomId }: QuizMakerProps) => {
+export const QuizMaker = ({ roomId, ws }: QuizMakerProps) => {
   const [questionData, setQuestionData] = useState<QuestionType>({
     question: "",
     options: [],
   });
   const [showQuiz, setShowQuiz] = useState(false);
-
-  const ws = useContext(WebSocketContext);
 
   const quizMakerFormHandler = (question: string, options: string[]) => {
     setQuestionData({
@@ -37,7 +35,7 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
       }
     );
 
-    ws?.sendJsonMessage({
+    ws.sendJsonMessage({
       request_type: "add_question",
       designation: "organizer",
       roomId: roomId,
@@ -65,11 +63,11 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
       }
     );
 
-    ws?.sendJsonMessage({
+    ws.sendJsonMessage({
       request_type: "submit_answer",
       designation: "organizer",
       roomId: roomId,
-      solution: answer,
+      answer: questionData.options.indexOf(answer),
     });
   };
 
@@ -150,6 +148,7 @@ export const QuizMaker = ({ roomId }: QuizMakerProps) => {
 
 type QuizMakerProps = {
   roomId: string;
+  ws: WebSocketHook;
 };
 
 type QuestionType = {
