@@ -20,21 +20,6 @@ export const QuizMaker = ({ roomId, ws }: QuizMakerProps) => {
     });
     setShowQuiz(true);
 
-    toast.custom(
-      (t) => (
-        <div
-          className={`${
-            t.visible ? "animate-enter" : "animate-leave"
-          } bg-kiwi-150 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-        >
-          ✅ Sent the question!
-        </div>
-      ),
-      {
-        duration: 2000,
-      }
-    );
-
     ws.sendJsonMessage({
       request_type: "add_question",
       designation: "organizer",
@@ -47,21 +32,6 @@ export const QuizMaker = ({ roomId, ws }: QuizMakerProps) => {
   const answerSelectionHandler = (answer: string) => {
     console.log(answer);
     setShowQuiz(false);
-
-    toast.custom(
-      (t) => (
-        <div
-          className={`${
-            t.visible ? "animate-enter" : "animate-leave"
-          } bg-kiwi-150 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-        >
-          ✅ Sent the solution!
-        </div>
-      ),
-      {
-        duration: 2000,
-      }
-    );
 
     ws.sendJsonMessage({
       request_type: "submit_answer",

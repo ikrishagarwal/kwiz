@@ -25,7 +25,44 @@ export const Room = () => {
     },
     onClose: () => console.log("Disconnected from server"),
     onError: (event) => console.error(event),
-    onMessage: (event) => console.log(event.data),
+    onMessage: (event) => {
+      console.log(event.data);
+
+      const data = JSON.parse(event.data);
+
+      // handling the response from the server
+      // TODO: properly manage the error responses
+      if (data.success)
+        toast.custom(
+          (t) => (
+            <div
+              className={`${
+                t.visible ? "animate-enter" : "animate-leave"
+              } bg-kiwi-150 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+            >
+              ✅ {data.message}
+            </div>
+          ),
+          {
+            duration: 2000,
+          }
+        );
+      else if (data.error)
+        toast.custom(
+          (t) => (
+            <div
+              className={`${
+                t.visible ? "animate-enter" : "animate-leave"
+              } bg-yellow-950 px-4 py-2 text-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+            >
+              ❌ {data.message}
+            </div>
+          ),
+          {
+            duration: 2000,
+          }
+        );
+    },
   });
 
   return (
