@@ -19,7 +19,10 @@ export const Room = () => {
       fetch("https://api.ipify.org?format=json")
         .then((response) => response.json())
         .then((data) => {
-          ws.sendMessage(`Requester: ${data.ip}`);
+          ws.sendJsonMessage({
+            message: `Requester: ${data.ip}`,
+            request_type: "log",
+          });
         })
         .catch(() => null);
     },
