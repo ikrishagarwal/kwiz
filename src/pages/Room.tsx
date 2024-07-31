@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useWebSocket from "react-use-websocket";
 import { wsUrl } from "../config";
 
-export const Room = () => {
+export const Room = ({ credentials }: RoomProps) => {
   const [roomName, setRoomName] = useState("");
   const [showQuizMaker, setShowQuizMaker] = useState(false);
   // const ws = useContext(WebSocketContext);
@@ -121,7 +121,7 @@ export const Room = () => {
                     request_type: "host_room",
                     designation: "organizer",
                     roomId: roomName,
-                    userId: "abc1",
+                    userId: credentials.userId,
                   });
                 }}
               >
@@ -155,4 +155,14 @@ export const Room = () => {
       <Toaster></Toaster>
     </>
   );
+};
+
+type CredentialsData = {
+  username: string;
+  role: "organizer" | "attendee";
+  userId: string;
+};
+
+type RoomProps = {
+  credentials: CredentialsData;
 };

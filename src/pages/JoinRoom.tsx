@@ -9,6 +9,9 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
   const [roomName, setRoomName] = useState(roomId);
   const [showQuiz, setShowQuiz] = useState(false);
 
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState<string[]>([]);
+
   const proto = location.protocol.startsWith("https") ? "wss" : "ws";
   const ws = useWebSocket(`${proto}://${wsUrl}`, {
     onOpen: () => {
@@ -69,10 +72,16 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
           case "add_question":
             console.log("Question:", data.question);
             console.log("Options:", data.options);
+
+            setQuestion(data.question);
+            setOptions(data.options);
             break;
 
           case "submit_answer":
-            console.log("Answer:", data.answer);
+            console.log("Answer:", data);
+
+            setQuestion("");
+            setOptions([]);
             break;
 
           default:
@@ -83,10 +92,25 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
     },
   });
 
+  const sendAnswer = (answer: number) => {
+    ws.sendJsonMessage({
+      request_type: "answer",
+      designation: "attendee",
+      roomId,
+      userId: credentials.userId,
+      answer,
+    });
+  };
+
   return (
     <>
       {showQuiz ? (
-        <QuizPage username={credentials.username}></QuizPage>
+        <QuizPage
+          username={credentials.username}
+          question={question}
+          options={options}
+          sendAnswer={sendAnswer}
+        ></QuizPage>
       ) : (
         <section className="flex-grow text-white flex items-center justify-center">
           <section className="h-fit w-fit  bg-kiwi-600 rounded-lg py-8 px-16">
@@ -121,7 +145,7 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
                     designation: "attendee",
                     roomId: roomName,
                     username: credentials.username,
-                    userId: credentials.username,
+                    userId: credentials.userId,
                   });
                   setShowQuiz(true);
                 }}
@@ -161,6 +185,7 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
 type CredentialsData = {
   username: string;
   role: "organizer" | "attendee";
+  userId: string;
 };
 
 type JoinRoomProps = {

@@ -67,6 +67,7 @@ export const Quiz = ({
           </section>
         </fieldset>
       </form>
+      <Toaster></Toaster>
     </section>
   );
 };
@@ -90,7 +91,6 @@ const Option = ({ content, prefix, handler }: OptionParams) => {
           <p className="py-1">{content}</p>
         </div>
       </label>
-      <Toaster></Toaster>
     </section>
   );
 };

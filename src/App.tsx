@@ -7,10 +7,12 @@ import { JoinRoom } from "./pages/JoinRoom";
 import "./index.css";
 import { CredentialsContext } from "./credentials";
 
+// TODO: use a proper short ID generator
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [credentials, setCredentials] = useState<CredentialsData>({
     username: "Guest",
+    userId: "Guest-" + Date.now(),
     role: "attendee",
   });
   const [roomId, setRoomId] = useState("");
@@ -20,6 +22,7 @@ const App = () => {
     setCredentials({
       username,
       role,
+      userId: credentials.userId,
     });
   };
 
@@ -39,7 +42,7 @@ const App = () => {
             {!isLoggedIn ? (
               <Home homeCallback={homeCallback}></Home>
             ) : credentials.role === "organizer" ? (
-              <Room></Room>
+              <Room credentials={credentials}></Room>
             ) : (
               <JoinRoom credentials={credentials} roomId={roomId}></JoinRoom>
             )}
@@ -53,6 +56,7 @@ const App = () => {
 type CredentialsData = {
   username: string;
   role: "organizer" | "attendee";
+  userId: string;
 };
 
 export default App;
