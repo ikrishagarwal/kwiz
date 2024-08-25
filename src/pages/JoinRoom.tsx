@@ -12,6 +12,9 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState<string[]>([]);
 
+  const [score, setScore] = useState(0);
+  const [total, setTotal] = useState(0);
+
   const proto = location.protocol.startsWith("https") ? "wss" : "ws";
   const ws = useWebSocket(`${proto}://${wsUrl}`, {
     onOpen: () => {
@@ -80,6 +83,9 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
           case "submit_answer":
             console.log("Answer:", data);
 
+            setTotal(total + 1);
+            setScore(data.score);
+
             setQuestion("");
             setOptions([]);
             break;
@@ -110,6 +116,8 @@ export const JoinRoom = ({ credentials, roomId }: JoinRoomProps) => {
           question={question}
           options={options}
           sendAnswer={sendAnswer}
+          score={score}
+          total={total}
         ></QuizPage>
       ) : (
         <section className="flex-grow text-white flex items-center justify-center">

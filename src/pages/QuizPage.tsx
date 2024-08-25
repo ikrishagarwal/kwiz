@@ -8,6 +8,8 @@ export const QuizPage = ({
   question,
   options,
   sendAnswer,
+  score,
+  total,
 }: QuizProps) => {
   const answerHandler = (answer: string) => {
     console.log(answer);
@@ -53,8 +55,8 @@ export const QuizPage = ({
               <Stats
                 stats={{
                   username,
-                  correct: 3,
-                  total: 5,
+                  correct: score,
+                  total,
                   category: "Math",
                 }}
               ></Stats>
@@ -75,4 +77,6 @@ type QuizProps = {
   question: string;
   options: string[];
   sendAnswer: (answer: number) => void;
+  score: number;
+  total: number;
 };
